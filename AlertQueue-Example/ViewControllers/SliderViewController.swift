@@ -31,7 +31,7 @@ class SliderViewController: UIViewController {
         let alertsToBeShown = Int(alertsToBeShownSlider.value)
         
         for index in 0..<alertsToBeShown {
-            if Bool.random() {
+            if index % 2 == 0 {
                 AlertPresenter.shared.presentAlertViewModel(createStandardAlertView(index: index))
             } else {
                 AlertPresenter.shared.presentAlertViewModel(createCustomAlertViewModel(index: index))
@@ -54,9 +54,11 @@ class SliderViewController: UIViewController {
     private func createCustomAlertViewModel(index: Int) -> AlertViewModel {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let customAlertController = storyboard.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController else {
+            print("hey")
             fatalError("Custom alert type does not exist")
         }
-        customAlertController.titleLabel.text = "This standard alert was index: \(index)"
+        let _ = customAlertController.view
+        customAlertController.titleLabelA.text = "This custom alert was index: \(index)"
         
         let alertViewModel = AlertViewModel(viewController: customAlertController)
         

@@ -3,16 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D2BDE27229A017F00B46B9B /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2BDE26229A017F00B46B9B /* AlertPresenter.swift */; };
+		3D2BDE29229A020200B46B9B /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2BDE28229A020200B46B9B /* AlertWindow.swift */; };
+		3D2BDE2B229A030400B46B9B /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2BDE2A229A030400B46B9B /* AlertViewModel.swift */; };
+		3D44F44922AB24BC005B8A5C /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44F44822AB24BC005B8A5C /* Queue.swift */; };
 		3D532D14227604E3002EE51F /* AlertQueue_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D532D13227604E3002EE51F /* AlertQueue_ExampleTests.swift */; };
 		3D532D2A227605E0002EE51F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D532D1F227605E0002EE51F /* LaunchScreen.storyboard */; };
 		3D532D2B227605E0002EE51F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D532D21227605E0002EE51F /* Main.storyboard */; };
 		3D532D2C227605E0002EE51F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D532D24227605E0002EE51F /* AppDelegate.swift */; };
-		3D532D2E227605E0002EE51F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D532D27227605E0002EE51F /* ViewController.swift */; };
+		3D532D2E227605E0002EE51F /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D532D27227605E0002EE51F /* SliderViewController.swift */; };
 		3D532D2F227605E0002EE51F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D532D29227605E0002EE51F /* Assets.xcassets */; };
+		3D82703B22A5DD2700B26248 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82703A22A5DD2700B26248 /* CustomAlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D2BDE26229A017F00B46B9B /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		3D2BDE28229A020200B46B9B /* AlertWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
+		3D2BDE2A229A030400B46B9B /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
+		3D44F44822AB24BC005B8A5C /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		3D532CFB227604E2002EE51F /* AlertQueue-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AlertQueue-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D532D0F227604E3002EE51F /* AlertQueue-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlertQueue-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D532D13227604E3002EE51F /* AlertQueue_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertQueue_ExampleTests.swift; sourceTree = "<group>"; };
@@ -34,8 +43,9 @@
 		3D532D22227605E0002EE51F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D532D24227605E0002EE51F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D532D25227605E0002EE51F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D532D27227605E0002EE51F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3D532D27227605E0002EE51F /* SliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
 		3D532D29227605E0002EE51F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3D82703A22A5DD2700B26248 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D2BDE23229A013900B46B9B /* AlertQueue */ = {
+			isa = PBXGroup;
+			children = (
+				3D2BDE26229A017F00B46B9B /* AlertPresenter.swift */,
+				3D2BDE2A229A030400B46B9B /* AlertViewModel.swift */,
+				3D2BDE28229A020200B46B9B /* AlertWindow.swift */,
+				3D44F44822AB24BC005B8A5C /* Queue.swift */,
+			);
+			path = AlertQueue;
+			sourceTree = "<group>";
+		};
 		3D532CF2227604E2002EE51F = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +98,7 @@
 		3D532CFD227604E2002EE51F /* AlertQueue-Example */ = {
 			isa = PBXGroup;
 			children = (
+				3D2BDE23229A013900B46B9B /* AlertQueue */,
 				3D532D23227605E0002EE51F /* Application */,
 				3D532D28227605E0002EE51F /* Resources */,
 				3D532D1E227605E0002EE51F /* Storyboards */,
@@ -115,7 +137,8 @@
 		3D532D26227605E0002EE51F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3D532D27227605E0002EE51F /* ViewController.swift */,
+				3D532D27227605E0002EE51F /* SliderViewController.swift */,
+				3D82703A22A5DD2700B26248 /* CustomAlertViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -178,15 +201,17 @@
 				TargetAttributes = {
 					3D532CFA227604E2002EE51F = {
 						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
 					};
 					3D532D0E227604E3002EE51F = {
 						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 3D532CFA227604E2002EE51F;
 					};
 				};
 			};
 			buildConfigurationList = 3D532CF6227604E2002EE51F /* Build configuration list for PBXProject "AlertQueue-Example" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -229,8 +254,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D532D2E227605E0002EE51F /* ViewController.swift in Sources */,
+				3D532D2E227605E0002EE51F /* SliderViewController.swift in Sources */,
 				3D532D2C227605E0002EE51F /* AppDelegate.swift in Sources */,
+				3D44F44922AB24BC005B8A5C /* Queue.swift in Sources */,
+				3D82703B22A5DD2700B26248 /* CustomAlertViewController.swift in Sources */,
+				3D2BDE2B229A030400B46B9B /* AlertViewModel.swift in Sources */,
+				3D2BDE27229A017F00B46B9B /* AlertPresenter.swift in Sources */,
+				3D2BDE29229A020200B46B9B /* AlertWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,8 +412,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -394,10 +423,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "AlertQueue-Example/Application/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamboles.AlertQueue-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -411,10 +437,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "AlertQueue-Example/Application/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamboles.AlertQueue-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -429,11 +452,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "AlertQueue-ExampleTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamboles.AlertQueue-ExampleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -449,11 +468,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "AlertQueue-ExampleTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamboles.AlertQueue-ExampleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
