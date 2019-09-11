@@ -10,7 +10,7 @@ import UIKit
 
 class CustomAlertViewController: UIViewController {
     
-    @IBOutlet weak var titleLabelA: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
     // MARK: - Actions
     

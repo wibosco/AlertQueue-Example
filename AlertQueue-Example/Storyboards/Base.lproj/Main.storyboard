@@ -159,7 +159,7 @@
                         <viewLayoutGuide key="safeArea" id="VKH-NC-bEJ"/>
                     </view>
                     <connections>
-                        <outlet property="titleLabelA" destination="iXS-dL-Ej1" id="zSC-Yc-ggC"/>
+                        <outlet property="titleLabel" destination="iXS-dL-Ej1" id="Un4-zS-C3L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rA4-gf-ZDP" userLabel="First Responder" sceneMemberID="firstResponder"/>

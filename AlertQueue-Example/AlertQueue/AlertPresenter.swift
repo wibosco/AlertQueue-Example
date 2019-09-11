@@ -11,38 +11,39 @@ import UIKit
 
 class AlertPresenter: AlertWindowDelegate {
     private var alertQueue = Queue<AlertViewModel>()
-    private let alertWindow = AlertWindow()
+    private var alertWindow: AlertWindow?
     
     static let shared = AlertPresenter()
     
-    // MARK: - Init
+    // MARK: - Present
     
-    init() {
-        self.alertWindow.delegate = self
-    }
-    
-    // MARK: - Alerts
-    
-    func presentAlertViewModel(_ alertViewModel: AlertViewModel) {
+    func presentAlert(withAlertViewModel alertViewModel: AlertViewModel) {
         alertQueue.enqueue(alertViewModel)
         
-        if !alertWindow.isKeyWindow {
-            showNextAlertIfPresent()
-        }
-    }
-    
-    // MARK: - AlertWindowDelegate
-    
-    func alertDismissed() {
         showNextAlertIfPresent()
     }
     
     private func showNextAlertIfPresent() {
-        guard let alertViewModel = alertQueue.dequeue() else {
+        guard alertWindow == nil else {
             return
         }
         
-        alertWindow.makeKeyAndVisible()
-        alertWindow.presentAlertViewModel(alertViewModel)
+        guard let alertViewModel = alertQueue.dequeue() else {
+            return
+        }
+
+        let alertWindow = AlertWindow(withAlertViewModel: alertViewModel)
+        alertWindow.delegate = self
+        
+        alertWindow.present()
+        
+        self.alertWindow = alertWindow
+    }
+    
+    // MARK: - AlertWindowDelegate
+    
+    func alertWindow(_ alertWindow: AlertWindow, didDismissAlertViewModel alertViewModel: AlertViewModel) {
+        self.alertWindow = nil
+        showNextAlertIfPresent()
     }
 }

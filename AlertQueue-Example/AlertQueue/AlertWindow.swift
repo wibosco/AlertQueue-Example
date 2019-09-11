@@ -9,68 +9,24 @@
 import Foundation
 import UIKit
 
-protocol MonitoringNavigationChangesDelegate {
-    func didDismissPresentedViewController(_ monitoringNavigationController: MonitoringNavigationController)
+protocol AlertWindowDelegate: class {
+    func alertWindow(_ alertWindow: AlertWindow, didDismissAlertViewModel alertViewModel: AlertViewModel)
 }
 
-class MonitoringNavigationController: UINavigationController {
-    var navigationChangesDelegate: MonitoringNavigationChangesDelegate?
+class AlertWindow: UIWindow, AlertHoldingDelegate {
+    weak var delegate: AlertWindowDelegate?
     
-    private var didPresentViewController: Bool = false
-    
-    // MARK: - ViewLifecycle
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        informDelegateIfNeeded()
-    }
-    
-    // MARK: - Presentation
-    
-    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        super.present(viewControllerToPresent, animated: flag) {
-            self.didPresentViewController = true
-        } 
-    }
-    
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        super.dismiss(animated: flag) {
-            completion?()
-            
-            self.informDelegateIfNeeded()
-        }
-    }
-    
-    // MARK: - Delegate
-    
-    private func informDelegateIfNeeded() {
-        if didPresentViewController {
-            navigationChangesDelegate?.didDismissPresentedViewController(self)
-            
-            didPresentViewController = false
-        }
-    }
-}
-
-protocol AlertWindowDelegate {
-    func alertDismissed()
-}
-
-class AlertWindow: UIWindow, MonitoringNavigationChangesDelegate {
-    
-    var delegate: AlertWindowDelegate?
+    private let alertViewModel: AlertViewModel
+    private var viewController: UIViewController?
     
     // MARK: - Init
     
-    init() {
+    init(withAlertViewModel alertViewModel: AlertViewModel) {
+        self.alertViewModel = alertViewModel
+        
         super.init(frame: UIScreen.main.bounds)
-        
-        let navigationController = MonitoringNavigationController(rootViewController: UIViewController())
-        navigationController.navigationChangesDelegate = self
-        rootViewController = navigationController
-        
-        windowLevel = .alert
+    
+        windowLevel = .normal
     }
     
     @available(*, unavailable)
@@ -78,30 +34,82 @@ class AlertWindow: UIWindow, MonitoringNavigationChangesDelegate {
         fatalError("Unavailable")
     }
     
-    // MARK: - MonitoringNavigationChangesDelegate
+    // MARK: - AlertHoldingDelegate
     
-    func didDismissPresentedViewController(_ monitoringNavigationController: MonitoringNavigationController) {
+    fileprivate func viewController(_ viewController: AlertHoldingViewController, didDismissAlert alertViewModel: AlertViewModel) {
         resignKeyAndHide()
-        
-        delegate?.alertDismissed()
+        delegate?.alertWindow(self, didDismissAlertViewModel: alertViewModel)
     }
     
     // MARK: - Present
     
-    func presentAlertViewModel(_ alertViewModel: AlertViewModel) {
-        rootViewController?.present(alertViewModel.viewController, animated: alertViewModel.animated, completion: alertViewModel.completion)
+    func present() {
+        makeKeyAndVisible()
+        
+        let holdingViewController = AlertHoldingViewController(withAlertViewModel: alertViewModel)
+        holdingViewController.delegate = self
+        rootViewController = holdingViewController
     }
-    
+
     // MARK: - Resign
-    
-    func resignKeyAndHideIfNeeded() {
-        if rootViewController?.presentedViewController == nil {
-            resignKeyAndHide()
-        }
-    }
     
     private func resignKeyAndHide() {
         resignKey()
         isHidden = true
+    }
+}
+
+fileprivate protocol AlertHoldingDelegate: class {
+    func viewController(_ viewController: AlertHoldingViewController, didDismissAlert alertViewModel: AlertViewModel)
+}
+
+fileprivate class AlertHoldingViewController: UIViewController {
+    private let alertViewModel: AlertViewModel
+    private var presentedAlert: Bool = false
+    
+    weak var delegate: AlertHoldingDelegate?
+    
+    // MARK: - Init
+    
+    init(withAlertViewModel alertViewModel: AlertViewModel) {
+        self.alertViewModel = alertViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - ViewLifecycle
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if presentedAlert {
+            //Called when UIViewController is dismissed
+            alertDismissed()
+        } else {
+            present(alertViewModel.viewController, animated: alertViewModel.animated) {
+                self.alertViewModel.completion?()
+                self.presentedAlert = true
+            }
+        }
+    }
+    
+    // MARK: - Presentation
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        //Called when UIAlertController is dismissed
+        super.dismiss(animated: flag) {
+            completion?()
+            
+            self.alertDismissed()
+        }
+    }
+    
+    // MARK: - Delegate
+    
+    private func alertDismissed() {
+        delegate?.viewController(self, didDismissAlert: alertViewModel)
     }
 }
