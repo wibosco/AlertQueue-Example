@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum AlertType {
+    case standard
+    case error
+    case informational
+}
+
 class SliderViewController: UIViewController {
     
     @IBOutlet weak var alertsToBeShownSlider: UISlider!
@@ -30,38 +36,46 @@ class SliderViewController: UIViewController {
     @IBAction func showButtonPressed(_ sender: Any) {
         let alertsToBeShown = Int(alertsToBeShownSlider.value)
         
-        for index in 0..<alertsToBeShown {
-            if index.isMultiple(of: 2) {
-                AlertPresenter.shared.presentAlert(withAlertViewModel: createCustomAlertViewModel(index: index))
-            } else {
-                AlertPresenter.shared.presentAlert(withAlertViewModel: createStandardAlertView(index: index))
+        var type = AlertType.standard
+        for _ in 0...alertsToBeShown {
+            switch type {
+            case .standard:
+                let alertViewModel = createStandardAlertPresentationViewModel()
+                AlertPresenter.shared.presentAlert(withAlertViewModel: alertViewModel)
+                type = .error
+            case .error:
+                let alertViewModel = createErrorAlertViewModel()
+                AlertPresenter.shared.presentAlert(withAlertViewModel: alertViewModel)
+                type = .informational
+            case .informational:
+                let alertViewModel = createInformationalAlertViewModel()
+                AlertPresenter.shared.presentAlert(withAlertViewModel: alertViewModel)
+                type = .standard
             }
         }
     }
     
     // MARK: - Alerts
     
-    private func createStandardAlertView(index: Int) -> AlertViewModel {
-        let alertController = UIAlertController(title: "Alert", message: "This standard alert was index: \(index)", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
-        alertController.addAction(okAction)
-    
-        let alertViewModel = AlertViewModel(viewController: alertController)
+    private func createStandardAlertPresentationViewModel() -> StandardAlertViewModel {
+        let dismissButton = StandardAlertButton(title: "Dismiss", style: .default, action: nil)
+        let alertViewModel = StandardAlertViewModel(title: "Standard alert title", message: "Message for standard alert", buttons: [dismissButton])
         
         return alertViewModel
     }
     
-    private func createCustomAlertViewModel(index: Int) -> AlertViewModel {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let customAlertController = storyboard.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController else {
-            fatalError("Custom alert type does not exist")
-        }
-        let _ = customAlertController.view
-        customAlertController.titleLabel.text = "This custom alert was index: \(index)"
+    private func createInformationalAlertViewModel() -> InformationAlertViewModel  {
+        let dismissButton = InformationalAlertButton(title: "Dismiss", action: nil)
+        let alertViewModel = InformationAlertViewModel(title: "Informational alert title", button: dismissButton)
         
-        let alertViewModel = AlertViewModel(viewController: customAlertController)
+        return alertViewModel
+    }
+    
+    private func createErrorAlertViewModel() -> ErrorAlertViewModel  {
+        let icon = UIImage(imageLiteralResourceName: "error-circle")
+        let okButton = ErrorAlertButton(title: "OK", action: nil)
+        let alertViewModel = ErrorAlertViewModel(title: "Error alert title", message: "Message for error", icon: icon, button: okButton)
         
         return alertViewModel
     }
 }
-
