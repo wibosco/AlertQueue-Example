@@ -8,74 +8,66 @@
 
 import UIKit
 
-enum AlertType {
-    case standard
-    case error
-    case informational
-}
-
 class SliderViewController: UIViewController {
     
     @IBOutlet weak var alertsToBeShownSlider: UISlider!
+    @IBOutlet weak var showButton: UIButton!
 
+    // MARK: - ViewLifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateButtonTitleToMatchSlider(alertsToBeShownSlider)
+    }
+    
     // MARK: - Slider
     
     @IBAction func alertsToBeShownSliderChanged(_ slider: UISlider) {
-        snapSliderToNearestValue(alertsToBeShownSlider)
+        snapSliderToNearestValue(slider)
+        updateButtonTitleToMatchSlider(slider)
     }
     
     private func snapSliderToNearestValue(_ slider: UISlider) {
-        let currentValue = slider.value
-        let rounded = roundf(currentValue)
-        
-        slider.setValue(rounded, animated: true)
+        slider.setValue(slider.nearestWholeValue, animated: true)
+    }
+    
+    private func updateButtonTitleToMatchSlider(_ slider: UISlider) {
+        let sliderValue = Int(alertsToBeShownSlider.nearestWholeValue)
+        let message: String
+        if sliderValue > 1 {
+            message = "Show \(sliderValue) alerts"
+        } else {
+            message = "Show 1 alert"
+        }
+        showButton.setTitle(message, for: .normal)
     }
     
     // MARK: - Button
     
     @IBAction func showButtonPressed(_ sender: Any) {
-        let alertsToBeShown = Int(alertsToBeShownSlider.value)
+        let alertsToBeShown = Int(alertsToBeShownSlider.nearestWholeValue)
         
-        var type = AlertType.standard
-        for _ in 0...alertsToBeShown {
-            switch type {
-            case .standard:
-                let alertViewModel = createStandardAlertPresentationViewModel()
-                AlertPresenter.shared.presentAlert(withAlertViewModel: alertViewModel)
-                type = .error
-            case .error:
-                let alertViewModel = createErrorAlertViewModel()
-                AlertPresenter.shared.presentAlert(withAlertViewModel: alertViewModel)
-                type = .informational
-            case .informational:
-                let alertViewModel = createInformationalAlertViewModel()
-                AlertPresenter.shared.presentAlert(withAlertViewModel: alertViewModel)
-                type = .standard
-            }
+        for index in 0..<alertsToBeShown {
+            let alertController = createAlertController(forIndex: index)
+            
+            AlertPresenter.shared.presentAlert(withAlertController: alertController)
         }
     }
     
     // MARK: - Alerts
     
-    private func createStandardAlertPresentationViewModel() -> StandardAlertViewModel {
-        let dismissButton = StandardAlertButton(title: "Dismiss", style: .default, action: nil)
-        let alertViewModel = StandardAlertViewModel(title: "Standard alert title", message: "Message for standard alert", buttons: [dismissButton])
-        
-        return alertViewModel
-    }
+    private func createAlertController(forIndex index: Int) -> UIAlertController {
+        let alertController = UIAlertController(title: "\(index)", message: "This alert has been queued", preferredStyle: .alert)
     
-    private func createInformationalAlertViewModel() -> InformationAlertViewModel  {
-        let dismissButton = InformationalAlertButton(title: "Dismiss", action: nil)
-        let alertViewModel = InformationAlertViewModel(title: "Informational alert title", button: dismissButton)
-        
-        return alertViewModel
-    }
+        let dismissAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(dismissAction)
     
-    private func createErrorAlertViewModel() -> ErrorAlertViewModel  {
-        let icon = UIImage(imageLiteralResourceName: "error-circle")
-        let okButton = ErrorAlertButton(title: "OK", action: nil)
-        let alertViewModel = ErrorAlertViewModel(title: "Error alert title", message: "Message for error", icon: icon, button: okButton)
-        
-        return alertViewModel
+        return alertController
+    }
+}
+
+fileprivate extension UISlider {
+    var nearestWholeValue: Float {
+        return roundf(value)
     }
 }

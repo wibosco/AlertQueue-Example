@@ -25,7 +25,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="HcX-Lh-ZuT">
                                 <rect key="frame" x="10" y="414" width="394" height="68.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of standard alerts to show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lso-WM-lWp">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of alerts to show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lso-WM-lWp">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -34,14 +34,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="h9t-T7-OUA">
                                         <rect key="frame" x="0.0" y="38.5" width="394" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zc3-H6-2tc">
-                                                <rect key="frame" x="0.0" y="0.0" width="10.5" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zc3-H6-2tc">
+                                                <rect key="frame" x="0.0" y="0.0" width="8" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeR-SC-FyH">
-                                                <rect key="frame" x="18.5" y="0.0" width="349.5" height="31"/>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="1" maxValue="10" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeR-SC-FyH">
+                                                <rect key="frame" x="16" y="0.0" width="352" height="31"/>
                                                 <connections>
                                                     <action selector="alertsToBeShownSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="fzq-p6-ugW"/>
                                                 </connections>
@@ -66,12 +66,12 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjT-9b-QM7">
-                                <rect key="frame" x="165.5" y="562.5" width="83" height="44"/>
+                                <rect key="frame" x="107" y="562.5" width="200" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="RFP-2A-32N"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="RFP-2A-32N"/>
                                     <constraint firstAttribute="height" constant="44" id="dmv-HA-5LW"/>
                                 </constraints>
-                                <state key="normal" title="Show Alerts"/>
+                                <state key="normal" title="Show 8 Alerts"/>
                                 <connections>
                                     <action selector="showButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h0V-Tc-o8l"/>
                                 </connections>
@@ -90,6 +90,7 @@
                     </view>
                     <connections>
                         <outlet property="alertsToBeShownSlider" destination="BeR-SC-FyH" id="cVa-z7-dUo"/>
+                        <outlet property="showButton" destination="hjT-9b-QM7" id="eF6-8c-ra0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
