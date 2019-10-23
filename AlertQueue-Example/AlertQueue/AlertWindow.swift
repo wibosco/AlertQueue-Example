@@ -80,6 +80,11 @@ fileprivate class HoldingViewController: UIViewController {
     
     // MARK: - ViewLifecycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .clear
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

@@ -17,19 +17,16 @@ class AlertPresenter: AlertWindowDelegate {
     
     // MARK: - Present
     
-    func presentAlert(withAlertController alertController: UIAlertController) {
+    func enqueueAlertForPresentation(_ alertController: UIAlertController) {
         alertQueue.enqueue(alertController)
         
         showNextAlertIfPresent()
     }
     
     private func showNextAlertIfPresent() {
-        guard alertWindow == nil else {
-            return
-        }
-        
-        guard let alertController = alertQueue.dequeue() else {
-            return
+        guard alertWindow == nil,
+            let alertController = alertQueue.dequeue() else {
+                return
         }
 
         let alertWindow = AlertWindow(withAlertController: alertController)

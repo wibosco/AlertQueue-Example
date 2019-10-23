@@ -50,7 +50,7 @@ class SliderViewController: UIViewController {
         for index in 0..<alertsToBeShown {
             let alertController = createAlertController(forIndex: index)
             
-            AlertPresenter.shared.presentAlert(withAlertController: alertController)
+            AlertPresenter.shared.enqueueAlertForPresentation(alertController)
         }
     }
     
