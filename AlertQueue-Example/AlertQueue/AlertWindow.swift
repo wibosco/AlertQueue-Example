@@ -29,7 +29,7 @@ class AlertWindow: UIWindow, HoldingDelegate {
         
         holdingViewController.delegate = self
     
-        windowLevel = .normal
+        windowLevel = .alert
     }
     
     @available(*, unavailable)
