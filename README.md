@@ -4,4 +4,4 @@ Status](https://travis-ci.org/wibosco/AlertQueue-Example.svg)](https://travis-ci
 /></a>
 
 # AlertQueue-Example
-A Swift example project on how to build an alert queue.
+A Swift example project on how to build an alert queue as shown in this article - https://williamboles.me/alert-queuing-with-windows/
