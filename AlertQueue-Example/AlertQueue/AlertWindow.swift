@@ -16,18 +16,15 @@ protocol AlertWindowDelegate: class {
 class AlertWindow: UIWindow, HoldingDelegate {
     weak var delegate: AlertWindowDelegate?
     
-    private let holdingViewController: HoldingViewController
-    
     // MARK: - Init
     
     init(withAlertController alertController: UIAlertController) {
-        holdingViewController = HoldingViewController(withAlertController: alertController)
-        
         super.init(frame: UIScreen.main.bounds)
         
-        rootViewController = holdingViewController
-        
+        let holdingViewController = HoldingViewController(withAlertController: alertController)
         holdingViewController.delegate = self
+        
+        rootViewController = holdingViewController
     
         windowLevel = .alert
     }
